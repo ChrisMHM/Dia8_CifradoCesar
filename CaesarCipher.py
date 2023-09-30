@@ -11,16 +11,29 @@ def encrypt(text, shift):
     for letter in text:
         if not letter in alphabet:
             encryptedText += letter
-        else:    
-            newIndex = alphabet.index(letter) + shift
-
-            if newIndex >= alphabetSize:
-                newIndex = newIndex % alphabetSize
-
+        else:
+            shift = shift % alphabetSize
+            newIndex = alphabetSize - (alphabet.index(letter) + shift)
             newLetter = alphabet[newIndex]
             encryptedText += newLetter
 
-    return encryptedText
+    print(encryptedText)
 
-encryptedText = encrypt(text, shift)
-print(encryptedText)
+encrypt(text, shift)
+
+def decrypt(text, shift):
+    alphabetSize = len(alphabet)
+    decryptedText = ""
+
+    for letter in text:
+        if not letter in alphabet:
+            decryptedText += letter
+        else:
+            shift = shift % alphabetSize
+            newIndex = alphabet.index(letter) - shift
+            newLetter = alphabet[newIndex]
+            decryptedText += newLetter
+
+    print(decryptedText)
+
+decrypt(text, shift)
