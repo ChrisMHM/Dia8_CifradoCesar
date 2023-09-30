@@ -4,36 +4,24 @@ direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
 text = input("Type your message:\n").lower()
 shift = int(input("Type the shift number:\n"))
 
-def encrypt(text, shift):
+def caesarCipher(text, shift, direction):
     alphabetSize = len(alphabet)
-    encryptedText = ""
+    message = ""
 
     for letter in text:
         if not letter in alphabet:
-            encryptedText += letter
+            message += letter
         else:
             shift = shift % alphabetSize
-            newIndex = alphabetSize - (alphabet.index(letter) + shift)
+            if direction == "encode":
+                newIndex = alphabet.index(letter) + shift
+                if newIndex > alphabetSize:
+                    newIndex -= alphabetSize
+            else:
+                newIndex = alphabet.index(letter) - shift
+                if newIndex < 0:
+                    newIndex += alphabetSize
             newLetter = alphabet[newIndex]
-            encryptedText += newLetter
+            message += newLetter
 
-    print(encryptedText)
-
-encrypt(text, shift)
-
-def decrypt(text, shift):
-    alphabetSize = len(alphabet)
-    decryptedText = ""
-
-    for letter in text:
-        if not letter in alphabet:
-            decryptedText += letter
-        else:
-            shift = shift % alphabetSize
-            newIndex = alphabet.index(letter) - shift
-            newLetter = alphabet[newIndex]
-            decryptedText += newLetter
-
-    print(decryptedText)
-
-decrypt(text, shift)
+    print(message)
